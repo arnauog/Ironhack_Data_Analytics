@@ -1,4 +1,4 @@
-def billboard100 (url):
+def billboardfunction (url):
     from bs4 import BeautifulSoup
     import requests ## HTTP REQUEST
     import pandas as pd
@@ -28,5 +28,4 @@ def billboard100 (url):
     billboard = pd.DataFrame({'song': songlist, 'artist': artists_list, 'last week rank': list_lastweek, 'weeks on chart': wks_on_chart})
     return billboard
 
-url = "https://www.billboard.com/charts/hot-100/"
-billboard100(url)
+
