@@ -1,6 +1,7 @@
 def billboardfunction (url):
     from bs4 import BeautifulSoup
-    import requests ## HTTP REQUEST
+    import requests 
+    import numpy as np
     import pandas as pd
     
     link = "url"
@@ -25,7 +26,9 @@ def billboardfunction (url):
     for i in lastweek[3::7]:
         wks_on_chart.append(i.get_text().lstrip().rstrip())
     
-    billboard = pd.DataFrame({'song': songlist, 'artist': artists_list, 'last week rank': list_lastweek, 'weeks on chart': wks_on_chart})
-    return billboard
+    dfbillboard = pd.DataFrame({'song': songlist, 'artist': artists_list, 'last_week_rank': list_lastweek, 'weeks_on_chart': wks_on_chart}).astype({'weeks_on_chart': int})
+    dfbillboard['last_week_rank'] = np.where((dfbillboard['last_week_rank'] == '-'), np.nan, dfbillboard['last_week_rank'])
+    dfbillboard['last_week_rank'] = dfbillboard['last_week_rank'].fillna(0).astype(int)
+    return dfbillboard
 
 
